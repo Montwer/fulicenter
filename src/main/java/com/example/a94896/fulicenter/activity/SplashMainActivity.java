@@ -1,10 +1,10 @@
 package com.example.a94896.fulicenter.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.a94896.fulicenter.R;
+import com.example.a94896.fulicenter.utils.MFGT;
 
 public class SplashMainActivity extends AppCompatActivity {
 private static final long sleepTime=2000;
@@ -27,7 +27,8 @@ private static final long sleepTime=2000;
                         e.printStackTrace();
                     }
                 }
-                startActivity(new Intent(SplashMainActivity.this,MainActivity.class));
+                MFGT.gotoMainActivity(SplashMainActivity.this);
+                MFGT.finish(SplashMainActivity.this);
             }
         }).start();
     }
