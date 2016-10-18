@@ -2,6 +2,7 @@ package com.example.a94896.fulicenter.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,9 +15,11 @@ import com.example.a94896.fulicenter.net.NetDao;
 import com.example.a94896.fulicenter.net.OkHttpUtils;
 import com.example.a94896.fulicenter.utils.CommonUtils;
 import com.example.a94896.fulicenter.utils.L;
+import com.example.a94896.fulicenter.utils.MFGT;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class GoodsDetailActivity extends AppCompatActivity {
 
@@ -109,6 +112,12 @@ public class GoodsDetailActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        
+    }
+    @OnClick(R.id.backClickArea)
+    public void onBackClick(){
+        MFGT.finish(this);
+    }
+    public void onback(View v){
+        MFGT.finish(this);
     }
 }
