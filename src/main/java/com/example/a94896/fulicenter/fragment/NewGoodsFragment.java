@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.a94896.fulicenter.I;
 import com.example.a94896.fulicenter.R;
+import com.example.a94896.fulicenter.Views.SpaceItemDecoration;
 import com.example.a94896.fulicenter.activity.MainActivity;
 import com.example.a94896.fulicenter.adapter.GoodsAdapter;
 import com.example.a94896.fulicenter.bean.NewGoodsBean;
@@ -159,6 +160,7 @@ public class NewGoodsFragment extends Fragment {
         rlv.setLayoutManager(mGridLayoutManager);
         rlv.setHasFixedSize(true);
         rlv.setAdapter(mAdapter);
+        rlv.addItemDecoration(new SpaceItemDecoration(12));
     }
 
 }
