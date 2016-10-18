@@ -68,7 +68,7 @@ public class GoodsAdapter extends Adapter {
             ImageLoader.downloadImg(mContext,mGoodsViewHolder.ivGoodsThumb,mNewGoodsBean.getGoodsThumb());
            mGoodsViewHolder.tvGoodsName.setText(mNewGoodsBean.getGoodsName());
            mGoodsViewHolder.tvGoodsPrice.setText(mNewGoodsBean.getCurrencyPrice());
-           mGoodsViewHolder.layoutGoods.setTag(mNewGoodsBean.getId());
+           mGoodsViewHolder.layoutGoods.setTag(mNewGoodsBean.getGoodsId());
 
        }
     }
