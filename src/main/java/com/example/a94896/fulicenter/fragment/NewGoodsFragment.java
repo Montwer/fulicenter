@@ -18,6 +18,7 @@ import com.example.a94896.fulicenter.adapter.GoodsAdapter;
 import com.example.a94896.fulicenter.bean.NewGoodsBean;
 import com.example.a94896.fulicenter.net.NetDao;
 import com.example.a94896.fulicenter.net.OkHttpUtils;
+import com.example.a94896.fulicenter.utils.CommonUtils;
 import com.example.a94896.fulicenter.utils.ConvertUtils;
 import com.example.a94896.fulicenter.utils.L;
 
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.example.a94896.fulicenter.utils.L.e;
 
 
 /**
@@ -43,11 +46,6 @@ public class NewGoodsFragment extends Fragment {
     GoodsAdapter mAdapter;
     ArrayList<NewGoodsBean>mList;
     int pageId=1;
-    public NewGoodsFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,20 +60,32 @@ public class NewGoodsFragment extends Fragment {
         return layout;
     }
 
+
     private void initData() {
         NetDao.downloadGoodsList(mContext, pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
+                srl.setRefreshing(false);
+                tvRefresh.setVisibility(View.GONE);
+                mAdapter.setMore(true);
+                e("result"+result);
                 if(result!=null && result.length>0){
                     ArrayList<NewGoodsBean> list= ConvertUtils.array2List(result);
                     mAdapter.initData(list);
+                    if (list.size()<I.PAGE_ID_DEFAULT){
+                        mAdapter.setMore(false);
+                    }
+                }else {
+                    mAdapter.setMore(false);
                 }
             }
 
             @Override
             public void onError(String error) {
-                L.e("error: "+error);
-
+                srl.setRefreshing(false);
+                rvNewGoods.setVisibility(View.GONE);
+                CommonUtils.showLongToast(error);
+                L.e("error:"+error);
             }
         });
     }
