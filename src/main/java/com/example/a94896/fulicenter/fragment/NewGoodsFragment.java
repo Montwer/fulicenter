@@ -57,11 +57,30 @@ public class NewGoodsFragment extends Fragment {
         mAdapter=new GoodsAdapter(mList,mContext);
         initView();
         initData();
+        setListener();
         return layout;
     }
+private void setListener(){
+    setPullUpListener();
+    setPullDownListener();
 
+}
 
-    private void initData() {
+    private void setPullDownListener() {
+     srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+         @Override
+         public void onRefresh() {
+             srl.setRefreshing(true);
+             tvRefresh.setVisibility(View.VISIBLE);
+             pageId=1;
+             downloadNewGoods();
+         }
+
+         
+     });
+    }
+
+    private void downloadNewGoods() {
         NetDao.downloadGoodsList(mContext, pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
@@ -84,10 +103,30 @@ public class NewGoodsFragment extends Fragment {
             public void onError(String error) {
                 srl.setRefreshing(false);
                 rvNewGoods.setVisibility(View.GONE);
+                mAdapter.setMore(false);
                 CommonUtils.showLongToast(error);
                 L.e("error:"+error);
             }
         });
+    }
+
+    private void setPullUpListener() {
+        rvNewGoods.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+    }
+
+    private void initData() {
+    downloadNewGoods();
     }
 
     private void initView() {
