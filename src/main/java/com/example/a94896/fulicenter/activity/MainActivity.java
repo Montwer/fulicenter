@@ -3,7 +3,6 @@ package com.example.a94896.fulicenter.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -17,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.layout_new_good)
     RadioButton layoutNewGood;
@@ -41,12 +40,12 @@ public class MainActivity extends AppCompatActivity {
     BoutiqueFragment mBoutiqueFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         L.i("MainActivity");
-        initView();
-        initFragment();
+        super.onCreate(savedInstanceState);
+
     }
 
     private void initFragment() {
@@ -65,13 +64,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         radioButtons=new RadioButton[5];
         radioButtons[0]=layoutNewGood;
         radioButtons[1]=layoutBoutique;
         radioButtons[2]=layoutCategory;
         radioButtons[3]=layoutCart;
         radioButtons[4]=layoutPersonalCenter;
+    }
+
+    @Override
+    protected void initData() {
+        initFragment();
+    }
+
+    @Override
+    protected void setListener() {
+
     }
 
     public void onCheckedChange(View v) {
@@ -110,13 +120,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setRadioButtonStatus() {
-        for(int i=0;i<radioButtons.length;i++){
-            if(i==index){
+        for(int i=0;i<radioButtons.length;i++) {
+            if (i == index) {
                 radioButtons[i].setChecked(true);
-            }else
-                radioButtons[i].setChecked(false);
-
+            } else
+         radioButtons[i].setChecked(false);
         }
     }
+    public void onBackPressed(){
+        finish();
+     }
+    }
 
-}
+
