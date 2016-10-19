@@ -39,7 +39,7 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
         if (viewType == I.TYPE_FOOTER) {
             holder = new FooterViewHolder(View.inflate(mContext, R.layout.item_footer, null));
         } else
-            holder = new BoutiqueViewHolder(View.inflate(mContext, R.layout.fragment_boutique, null));
+            holder = new BoutiqueViewHolder(View.inflate(mContext, R.layout.item_boutique, null));
         return holder;
     }
 

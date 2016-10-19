@@ -42,7 +42,8 @@ public class BoutiqueFragment extends Fragment {
     LinearLayoutManager mLinearLayoutManager;
     MainActivity mContext;
     BoutiqueAdapter mAdapter;
-   int pageId=1;
+    ArrayList<BoutiqueBean> mList;
+    int pageId=1;
     public BoutiqueFragment() {
     }
 
@@ -52,6 +53,8 @@ public class BoutiqueFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_new_goods, container, false);
         ButterKnife.bind(this, layout);
         mContext = (MainActivity) getContext();
+        mList=new ArrayList<>();
+        mAdapter=new BoutiqueAdapter(mContext,mList);
         initView();
         initData();
         setListener();
@@ -136,7 +139,7 @@ public class BoutiqueFragment extends Fragment {
     }
 
     private void initView() {
-        sfl.setColorScheme(getResources().getColor(R.color.google_blue),
+        sfl.setColorSchemeColors(getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_yellow),
                 getResources().getColor(R.color.google_red),
                 getResources().getColor(R.color.google_green));
