@@ -75,8 +75,17 @@ public class MainActivity extends AppCompatActivity {
                 index=4;
                 break;
         }
+
         setRadioButtonStatus();
     }
+
+//    private void setFragment() {
+//        if (index!=currentIndex){
+//            FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+//            ft.hide(fragments[currentIndex]);
+//            if ()
+//        }
+//    }
 
     private void setRadioButtonStatus() {
         for(int i=0;i<radioButtons.length;i++){

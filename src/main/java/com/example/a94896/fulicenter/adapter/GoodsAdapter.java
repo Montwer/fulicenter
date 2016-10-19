@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.a94896.fulicenter.I;
 import com.example.a94896.fulicenter.R;
+import com.example.a94896.fulicenter.Views.FooterViewHolder;
 import com.example.a94896.fulicenter.bean.NewGoodsBean;
 import com.example.a94896.fulicenter.utils.ImageLoader;
 import com.example.a94896.fulicenter.utils.MFGT;
@@ -125,15 +126,7 @@ public class GoodsAdapter extends Adapter {
 
         }
     }
-    static class FooterViewHolder extends ViewHolder{
-        @BindView(R.id.tvFooter)
-        TextView tvFooter;
 
-        FooterViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
-    }
 
 
 }
