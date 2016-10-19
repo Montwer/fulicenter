@@ -6,8 +6,10 @@ import android.content.Intent;
 
 import com.example.a94896.fulicenter.I;
 import com.example.a94896.fulicenter.R;
+import com.example.a94896.fulicenter.activity.BoutiqueChildActivity;
 import com.example.a94896.fulicenter.activity.GoodsDetailActivity;
 import com.example.a94896.fulicenter.activity.MainActivity;
+import com.example.a94896.fulicenter.bean.BoutiqueBean;
 
 //提高效率同意界面的风格
 public class MFGT {
@@ -28,6 +30,12 @@ public class MFGT {
         Intent intent = new Intent();
         intent.setClass(context, GoodsDetailActivity.class);
         intent.putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsId);
+        startActivity(context,intent);
+    }
+    public static void gotoBoutiqueChildActivity(Context context, BoutiqueBean bean){
+        Intent intent = new Intent();
+        intent.setClass(context, BoutiqueChildActivity.class);
+        intent.putExtra(I.Boutique.CAT_ID,bean);
         startActivity(context,intent);
     }
     public static void startActivity(Context context, Intent intent){

@@ -6,16 +6,19 @@ import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.a94896.fulicenter.R;
 import com.example.a94896.fulicenter.bean.BoutiqueBean;
 import com.example.a94896.fulicenter.utils.ImageLoader;
+import com.example.a94896.fulicenter.utils.MFGT;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
@@ -46,6 +49,7 @@ public class BoutiqueAdapter extends Adapter<BoutiqueAdapter.BoutiqueViewHolder>
             bh.tvBoutiqueTitle.setText(mBoutiqueBean.getTitle());
             bh.tvBoutiqueName.setText(mBoutiqueBean.getName());
             bh.tvBoutiqueDescription.setText(mBoutiqueBean.getDescription());
+            bh.mLayoutBoutiqueItem.setTag(mBoutiqueBean);
         }
 
 
@@ -69,10 +73,17 @@ public class BoutiqueAdapter extends Adapter<BoutiqueAdapter.BoutiqueViewHolder>
         TextView tvBoutiqueName;
         @BindView(R.id.tvBoutiqueDescription)
         TextView tvBoutiqueDescription;
+        @BindView(R.id.layout_Boutique)
+        RelativeLayout mLayoutBoutiqueItem;
 
         BoutiqueViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+        @OnClick(R.id.layout_Boutique)
+        public void onBoutiqueClick(){
+            BoutiqueBean bean =(BoutiqueBean)mLayoutBoutiqueItem.getTag();
+            MFGT.gotoBoutiqueChildActivity(mContext,bean);
         }
     }
 }

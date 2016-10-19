@@ -1,76 +1,82 @@
-package com.example.a94896.fulicenter.fragment;
-
+package com.example.a94896.fulicenter.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.a94896.fulicenter.I;
 import com.example.a94896.fulicenter.R;
 import com.example.a94896.fulicenter.Views.SpaceItemDecoration;
-import com.example.a94896.fulicenter.activity.MainActivity;
 import com.example.a94896.fulicenter.adapter.GoodsAdapter;
+import com.example.a94896.fulicenter.bean.BoutiqueBean;
 import com.example.a94896.fulicenter.bean.NewGoodsBean;
 import com.example.a94896.fulicenter.net.NetDao;
 import com.example.a94896.fulicenter.net.OkHttpUtils;
 import com.example.a94896.fulicenter.utils.CommonUtils;
 import com.example.a94896.fulicenter.utils.ConvertUtils;
 import com.example.a94896.fulicenter.utils.L;
+import com.example.a94896.fulicenter.utils.MFGT;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static com.example.a94896.fulicenter.R.id.srl;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by 94896 on 2016/10/19.
  */
-public class NewGoodsFragment extends BaseFragment {
 
-
+public class BoutiqueChildActivity extends BaseActivity {
+    @BindView(R.id.tv_common_title)
+    TextView tvCommonTitle;
     @BindView(R.id.tv_refresh)
     TextView tvRefresh;
     @BindView(R.id.rvNewGoods)
     RecyclerView rlv;
-    @BindView(R.id.srl)
+    @BindView(srl)
     SwipeRefreshLayout sfl;
-    MainActivity mContext;
+    BoutiqueChildActivity mContext;
     GoodsAdapter mAdapter;
-    ArrayList<NewGoodsBean> mList;
+    ArrayList<NewGoodsBean>mList;
     int pageId=1;
     GridLayoutManager mGridLayoutManager;
-    public NewGoodsFragment() {
-        // Required empty public constructor
-    }
+    int catId;
+    BoutiqueBean boutique;
+    protected void onCreate(Bundle savedInstanceState) {
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        L.e("NewGoodsFragment.onCreateView");
-        // Inflate the layout for this fragment
-        View layout = inflater.inflate(R.layout.fragment_new_goods, container, false);
-        ButterKnife.bind(this, layout);
-        mContext= (MainActivity) getContext();
+        setContentView(R.layout.activity_boutique_child);
+        ButterKnife.bind(this);
+        boutique= (BoutiqueBean) getIntent().getSerializableExtra(I.Boutique.CAT_ID);
+        if (boutique==null){
+            finish();
+        }
+        mContext=this;
         mList=new ArrayList<>();
         mAdapter=new GoodsAdapter(mList,mContext);
-        super.onCreateView(inflater,container,savedInstanceState);
-//        initView();
-//        initData();
-//        setListener();
-        return layout;
+        super.onCreate(savedInstanceState);
     }
 
-    /**
-     * 创建一个监听器
-     */
+    @Override
+    protected void initView() {
+       sfl.setColorSchemeColors(
+                getResources().getColor(R.color.google_blue),
+                getResources().getColor(R.color.google_yellow),
+                getResources().getColor(R.color.google_red),
+                getResources().getColor(R.color.google_green));
+        mGridLayoutManager = new GridLayoutManager(mContext, I.COLUM_NUM);
+        rlv.setLayoutManager(mGridLayoutManager);
+        rlv.setHasFixedSize(true);
+        rlv.setAdapter(mAdapter);
+        rlv.addItemDecoration(new SpaceItemDecoration(12));
+        tvCommonTitle.setText(boutique.getTitle());
+    }
+
     @Override
     protected void setListener() {
         setPullUpListener();
@@ -125,7 +131,7 @@ public class NewGoodsFragment extends BaseFragment {
     }
 
     private void downLoadData(final int action) {
-        NetDao.downloadGoods(mContext,I.CAT_ID,pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
+        NetDao.downloadGoods(mContext,boutique.getId(),pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
                 sfl.setRefreshing(false);
@@ -156,17 +162,12 @@ public class NewGoodsFragment extends BaseFragment {
         });
     }
 
-    @Override
-    protected void initView() {
-        sfl.setColorSchemeColors(getResources().getColor(R.color.google_blue),
-                getResources().getColor(R.color.google_yellow),
-                getResources().getColor(R.color.google_red),
-                getResources().getColor(R.color.google_green));
-        mGridLayoutManager = new GridLayoutManager(mContext, I.COLUM_NUM);
-        rlv.setLayoutManager(mGridLayoutManager);
-        rlv.setHasFixedSize(true);
-        rlv.setAdapter(mAdapter);
-        rlv.addItemDecoration(new SpaceItemDecoration(12));
-    }
 
+
+
+
+    @OnClick(R.id.backClickArea)
+    public void onClick() {
+        MFGT.finish(this);
+    }
 }

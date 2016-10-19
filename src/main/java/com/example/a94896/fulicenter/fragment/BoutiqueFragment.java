@@ -2,7 +2,6 @@ package com.example.a94896.fulicenter.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +30,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2016/10/19.
  */
-public class BoutiqueFragment extends Fragment {
+public class BoutiqueFragment extends BaseFragment {
     @BindView(R.id.tv_refresh)
     TextView tvRefresh;
     @BindView(R.id.rvNewGoods)
@@ -54,16 +53,18 @@ public class BoutiqueFragment extends Fragment {
         mContext = (MainActivity) getContext();
         mList=new ArrayList<>();
         mAdapter=new BoutiqueAdapter(mContext,mList);
-        initView();
-        initData();
-        setListener();
+//        initView();
+//        initData();
+//        setListener();
+        super.onCreateView(inflater,container,savedInstanceState);
         return layout;
     }
 
     /**
      * 创建一个监听器
      */
-    private void setListener() {
+    @Override
+    protected void setListener() {
 
         setPullDownListener();
     }
@@ -83,7 +84,8 @@ public class BoutiqueFragment extends Fragment {
         });
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         downLoadData();
     }
 
@@ -109,7 +111,8 @@ public class BoutiqueFragment extends Fragment {
         });
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         sfl.setColorSchemeColors(getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_yellow),
                 getResources().getColor(R.color.google_red),
