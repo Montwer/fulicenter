@@ -57,7 +57,7 @@ public class BoutiqueAdapter extends Adapter<BoutiqueAdapter.BoutiqueViewHolder>
     public int getItemCount() {
         return mList != null?mList.size():0;
     }
-    public void initData(ArrayList<BoutiqueBean> list) {
+    public void initData(ArrayList<BoutiqueBean>list) {
         if(mList!=null){
             mList.clear();
         }

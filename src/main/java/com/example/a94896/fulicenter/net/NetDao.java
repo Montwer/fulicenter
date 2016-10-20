@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.example.a94896.fulicenter.I;
 import com.example.a94896.fulicenter.bean.BoutiqueBean;
+import com.example.a94896.fulicenter.bean.CategoryChildBean;
+import com.example.a94896.fulicenter.bean.CategoryGroupBean;
 import com.example.a94896.fulicenter.bean.GoodsDetailsBean;
 import com.example.a94896.fulicenter.bean.NewGoodsBean;
 
@@ -47,4 +49,43 @@ public class NetDao {
                 .targetClass(BoutiqueBean[].class)
                 .execute(listener);
     }
+    /**下载分类商品的大类信息
+     */
+    public static void downloadCategoryGroupList(Context context, OkHttpUtils.OnCompleteListener<CategoryGroupBean[]> listener) {
+        OkHttpUtils<CategoryGroupBean[]> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_CATEGORY_GROUP)
+                .targetClass(CategoryGroupBean[].class)
+                .execute(listener);
+    }
+
+    /**
+     * 下载分类中小类商品信息
+     * @param groupId
+     * @param listener
+     */
+    public static void downloadCategoryChildList(Context context, int groupId,OkHttpUtils.OnCompleteListener<CategoryChildBean[]> listener) {
+        OkHttpUtils<CategoryChildBean[]> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_CATEGORY_CHILDREN)
+                .addParam(I.CategoryChild.PARENT_ID, String.valueOf(groupId))
+                .addParam(I.PAGE_ID, String.valueOf(I.PAGE_ID_DEFAULT))
+                .addParam(I.PAGE_SIZE, String.valueOf(I.PAGE_SIZE_DEFAULT))
+                .targetClass(CategoryChildBean[].class)
+                .execute(listener);
+    }
+    /**
+     * 从服务端下载分类列表小列表中的过滤标签中的一组商品信息
+     * @param catId
+     * @param pageId
+     * @param listener
+     */
+    public static void downloadCategoryGoods(Context context, int catId, int pageId, OkHttpUtils.OnCompleteListener<NewGoodsBean[]> listener) {
+        OkHttpUtils<NewGoodsBean[]> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_GOODS_DETAILS)
+                .addParam(I.NewAndBoutiqueGoods.CAT_ID, String.valueOf(catId))
+                .addParam(I.PAGE_ID, String.valueOf(pageId))
+                .addParam(I.PAGE_SIZE, String.valueOf(I.PAGE_SIZE_DEFAULT))
+                .targetClass(NewGoodsBean[].class)
+                .execute(listener);
+    }
+
 }

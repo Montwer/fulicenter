@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
 public class NewGoodsFragment extends BaseFragment {
 
 
-    @BindView(R.id.tv_refresh)
+    @BindView(R.id.rlv)
     TextView tvRefresh;
     @BindView(R.id.rvNewGoods)
     RecyclerView rlv;

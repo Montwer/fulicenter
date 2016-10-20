@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 import com.example.a94896.fulicenter.I;
 import com.example.a94896.fulicenter.R;
+import com.example.a94896.fulicenter.Views.CatChildFilterButton;
 import com.example.a94896.fulicenter.Views.SpaceItemDecoration;
 import com.example.a94896.fulicenter.adapter.GoodsAdapter;
+import com.example.a94896.fulicenter.bean.CategoryChildBean;
 import com.example.a94896.fulicenter.bean.NewGoodsBean;
 import com.example.a94896.fulicenter.net.NetDao;
 import com.example.a94896.fulicenter.net.OkHttpUtils;
@@ -29,7 +31,7 @@ import butterknife.OnClick;
 
 public class CategoryChildActivity extends BaseActivity {
 
-    @BindView(R.id.tv_refresh)
+    @BindView(R.id.rlv)
     TextView tvRefresh;
     @BindView(R.id.rvNewGoods)
     RecyclerView rlv;
@@ -45,9 +47,14 @@ public class CategoryChildActivity extends BaseActivity {
     Button btnSortPrice;
     @BindView(R.id.btn_sort_addtime)
     Button btnSortAddtime;
-    boolean addTimeAsc=false;
-    boolean priceAsc=false;
-    int sortBy=I.SORT_BY_ADDTIME_DESC;
+    boolean addTimeAsc = false;
+    boolean priceAsc = false;
+    int sortBy = I.SORT_BY_ADDTIME_DESC;
+    @BindView(R.id.btnCatChildFilter)
+    CatChildFilterButton btnCatChildFilter;
+    String groupName;
+    ArrayList<CategoryChildBean>mChildList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +67,8 @@ public class CategoryChildActivity extends BaseActivity {
         if (catId == 0) {
             finish();
         }
+        groupName= getIntent().getStringExtra(I.CategoryGroup.NAME);
+        mChildList= (ArrayList<CategoryChildBean>) getIntent().getSerializableExtra(I.CategoryChild.ID);
         super.onCreate(savedInstanceState);
     }
 
@@ -75,6 +84,8 @@ public class CategoryChildActivity extends BaseActivity {
         rlv.setHasFixedSize(true);
         rlv.setAdapter(mAdapter);
         rlv.addItemDecoration(new SpaceItemDecoration(12));
+        btnCatChildFilter.setText(groupName);
+
     }
 
     @Override
@@ -129,6 +140,7 @@ public class CategoryChildActivity extends BaseActivity {
     @Override
     protected void initData() {
         downLoadCategoryGoods(I.ACTION_DOWNLOAD);
+        btnCatChildFilter.setOnCatFilterClickListener(groupName,mChildList);
     }
 
     private void downLoadCategoryGoods(final int action) {
@@ -182,20 +194,20 @@ public class CategoryChildActivity extends BaseActivity {
                     sortBy = I.SORT_BY_PRICE_DESC;
                     right = getResources().getDrawable(R.mipmap.arrow_order_down);
                 }
-                right.setBounds(0,0,right.getIntrinsicWidth(),right.getIntrinsicHeight());
-                btnSortPrice.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,right,null);
+                right.setBounds(0, 0, right.getIntrinsicWidth(), right.getIntrinsicHeight());
+                btnSortPrice.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, right, null);
                 break;
             case R.id.btn_sort_addtime:
-                if (addTimeAsc){
-                    sortBy=I.SORT_BY_ADDTIME_ASC;
+                if (addTimeAsc) {
+                    sortBy = I.SORT_BY_ADDTIME_ASC;
                     right = getResources().getDrawable(R.mipmap.arrow_order_up);
-                }else {
-                    sortBy=I.SORT_BY_ADDTIME_DESC;
+                } else {
+                    sortBy = I.SORT_BY_ADDTIME_DESC;
                     right = getResources().getDrawable(R.mipmap.arrow_order_down);
                 }
-                right.setBounds(0,0,right.getIntrinsicWidth(),right.getIntrinsicHeight());
-                btnSortAddtime.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,right,null);
-                addTimeAsc=!addTimeAsc;
+                right.setBounds(0, 0, right.getIntrinsicWidth(), right.getIntrinsicHeight());
+                btnSortAddtime.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, right, null);
+                addTimeAsc = !addTimeAsc;
                 break;
         }
         mAdapter.setSortBy(sortBy);

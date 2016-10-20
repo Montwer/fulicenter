@@ -87,7 +87,7 @@ public class GoodsDetailActivity extends BaseActivity {
         tvGoodPriceCurrent.setText(details.getCurrencyPrice());
         tvGoodPriceShop.setText(details.getShopPrice());
         salv.startPlayLoop(indicator,getAlbumImgUrl(details),getAlbumImgCount(details));
-            wvGoodBrief.loadDataWithBaseURL(null,details.getGoodsBrief(),I.TEXT_HTML,I.UTF_8,null);
+        wvGoodBrief.loadDataWithBaseURL(null,details.getGoodsBrief(),I.TEXT_HTML,I.UTF_8,null);
     }
 
     private int getAlbumImgCount(GoodsDetailsBean details) {

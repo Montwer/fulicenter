@@ -35,7 +35,7 @@ import static com.example.a94896.fulicenter.R.id.srl;
 public class BoutiqueChildActivity extends BaseActivity {
     @BindView(R.id.tv_common_title)
     TextView tvCommonTitle;
-    @BindView(R.id.tv_refresh)
+    @BindView(R.id.rlv)
     TextView tvRefresh;
     @BindView(R.id.rvNewGoods)
     RecyclerView rlv;
@@ -46,7 +46,6 @@ public class BoutiqueChildActivity extends BaseActivity {
     ArrayList<NewGoodsBean>mList;
     int pageId=1;
     GridLayoutManager mGridLayoutManager;
-    int catId;
     BoutiqueBean boutique;
     protected void onCreate(Bundle savedInstanceState) {
 

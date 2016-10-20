@@ -34,7 +34,6 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         mChildList = new ArrayList<>();
         mChildList.addAll(childList);
     }
-
     @Override
     public int getGroupCount() {
         return mGroupList != null ? mGroupList.size() : 0;
@@ -116,6 +115,9 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
             ImageLoader.downloadImg(mContext, holder.ivCategoryChildThumb, child.getImageUrl());
             holder.tvCategoryChildName.setText(child.getName());
             holder.layoutCategoryChild.setOnClickListener(new View.OnClickListener() {
+                ArrayList<CategoryChildBean>list=mChildList.get(groupPosition);
+                String groupName=mGroupList.get(groupPosition).getName();
+
                 @Override
                 public void onClick(View view) {
                     MFGT.gotoCategoryChildActivity(mContext,child.getId());
