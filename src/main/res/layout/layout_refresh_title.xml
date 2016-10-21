@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView
-    android:id="@+id/rlv"
+    android:id="@+id/tv_refresh"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="@string/now_refresh"

@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2016/10/19.
  */
 public class BoutiqueFragment extends BaseFragment {
-    @BindView(R.id.rlv)
+    @BindView(R.id.tv_refresh)
     TextView tvRefresh;
     @BindView(R.id.rvNewGoods)
     RecyclerView rlv;

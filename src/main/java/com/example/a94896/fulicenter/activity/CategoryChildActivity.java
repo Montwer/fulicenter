@@ -31,7 +31,7 @@ import butterknife.OnClick;
 
 public class CategoryChildActivity extends BaseActivity {
 
-    @BindView(R.id.rlv)
+    @BindView(R.id.tv_refresh)
     TextView tvRefresh;
     @BindView(R.id.rvNewGoods)
     RecyclerView rlv;
