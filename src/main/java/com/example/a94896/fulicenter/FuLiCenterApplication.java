@@ -7,7 +7,10 @@ import android.app.Application;
  */
 
 public class FuLiCenterApplication extends Application {
+    public static FuLiCenterApplication application;
     private static FuLiCenterApplication instance;
+
+    private static String Username;
 
     public FuLiCenterApplication(){
         instance=this;
@@ -17,5 +20,12 @@ public class FuLiCenterApplication extends Application {
             instance=new FuLiCenterApplication();
         }
         return instance;
+    }
+    public static String getUsername() {
+        return Username;
+    }
+
+    public static void setUsername(String username) {
+        Username = username;
     }
 }
