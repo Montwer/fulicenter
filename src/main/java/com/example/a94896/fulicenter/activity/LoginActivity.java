@@ -1,11 +1,14 @@
 package com.example.a94896.fulicenter.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.a94896.fulicenter.I;
 import com.example.a94896.fulicenter.R;
+import com.example.a94896.fulicenter.utils.MFGT;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,7 +51,17 @@ public class LoginActivity extends BaseActivity {
             case R.id.btn_login:
                 break;
             case R.id.btn_register:
+                MFGT.gotoRegister(this);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==RESULT_OK&&requestCode== I.REQUEST_CODE_REGISTER){
+            String name=data.getStringExtra(I.User.USER_NAME);
+            username.setText(name);
         }
     }
 }

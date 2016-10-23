@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.a94896.fulicenter.R;
+import com.example.a94896.fulicenter.utils.MFGT;
 
 /**
  * Created by clawpo on 16/8/3.
@@ -14,7 +15,8 @@ public class DisplayUtils {
         activity.findViewById(R.id.backClickArea).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.finish();
+                MFGT.finish(activity);
+//                activity.finish();
             }
         });
     }

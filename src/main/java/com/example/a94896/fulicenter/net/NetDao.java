@@ -8,6 +8,8 @@ import com.example.a94896.fulicenter.bean.CategoryChildBean;
 import com.example.a94896.fulicenter.bean.CategoryGroupBean;
 import com.example.a94896.fulicenter.bean.GoodsDetailsBean;
 import com.example.a94896.fulicenter.bean.NewGoodsBean;
+import com.example.a94896.fulicenter.bean.Result;
+import com.example.a94896.fulicenter.utils.MD5;
 
 
 public class NetDao {
@@ -87,5 +89,15 @@ public class NetDao {
                 .targetClass(NewGoodsBean[].class)
                 .execute(listener);
     }
+public static void register(Context context, String username, String nickname, String password, OkHttpUtils.OnCompleteListener<Result>listener){
+    OkHttpUtils<Result>utils=new OkHttpUtils<>(context);
+    utils.setRequestUrl(I.REQUEST_REGISTER)
+            .addParam(I.User.USER_NAME,username)
+            .addParam(I.User.NICK,nickname)
+            .addParam(I.User.PASSWORD, MD5.getMessageDigest(password))
+            .targetClass(Result.class)
+            .post()
+            .execute(listener);
+}
 
 }
