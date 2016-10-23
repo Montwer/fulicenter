@@ -35,7 +35,7 @@ import static com.example.a94896.fulicenter.R.id.srl;
 public class BoutiqueChildActivity extends BaseActivity {
     @BindView(R.id.tv_common_title)
     TextView tvCommonTitle;
-    @BindView(R.id.rlv)
+    @BindView(R.id.tv_refresh)
     TextView tvRefresh;
     @BindView(R.id.rvNewGoods)
     RecyclerView rlv;

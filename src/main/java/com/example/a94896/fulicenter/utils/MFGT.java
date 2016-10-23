@@ -9,10 +9,12 @@ import com.example.a94896.fulicenter.R;
 import com.example.a94896.fulicenter.activity.BoutiqueChildActivity;
 import com.example.a94896.fulicenter.activity.CategoryChildActivity;
 import com.example.a94896.fulicenter.activity.GoodsDetailActivity;
+import com.example.a94896.fulicenter.activity.LoginActivity;
 import com.example.a94896.fulicenter.activity.MainActivity;
 import com.example.a94896.fulicenter.bean.BoutiqueBean;
+import com.example.a94896.fulicenter.bean.CategoryChildBean;
 
-import static android.R.id.list;
+import java.util.ArrayList;
 
 //提高效率同意界面的风格
 public class MFGT {
@@ -44,13 +46,15 @@ public class MFGT {
         intent.putExtra(I.Boutique.CAT_ID,bean);
         startActivity(context,intent);
     }
-    public static void gotoCategoryChildActivity(Context context, int catId){
+    public static void gotoCategoryChildActivity(Context context,int catId,String groupName,ArrayList<CategoryChildBean>list){
         Intent intent = new Intent();
         intent.setClass(context, CategoryChildActivity.class);
         intent.putExtra(I.CategoryChild.CAT_ID,catId);
-//        intent.putExtra(I.CategoryGroup.NAME,groupName);
+        intent.putExtra(I.CategoryGroup.NAME,groupName);
         intent.putExtra(I.CategoryChild.ID,list);
-
         startActivity(context,intent);
+    }
+    public static void gotoLogin(Activity context){
+        startActivity(context, LoginActivity.class);
     }
 }
