@@ -1,32 +1,43 @@
 package com.example.a94896.fulicenter.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.example.a94896.fulicenter.I;
 import com.example.a94896.fulicenter.R;
+import com.example.a94896.fulicenter.bean.Result;
+import com.example.a94896.fulicenter.bean.User;
+import com.example.a94896.fulicenter.net.NetDao;
+import com.example.a94896.fulicenter.net.OkHttpUtils;
+import com.example.a94896.fulicenter.utils.CommonUtils;
+import com.example.a94896.fulicenter.utils.L;
 import com.example.a94896.fulicenter.utils.MFGT;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+
 public class LoginActivity extends BaseActivity {
-
+private static final String TAG=LoginActivity.class.getSimpleName();
     @BindView(R.id.username)
-    EditText username;
-    @BindView(R.id.iv_password)
-    ImageView ivPassword;
+    EditText musername;
     @BindView(R.id.password)
-    EditText password;
+    EditText mpassword;
 
+
+    String username;
+    String password;
+    LoginActivity mcontext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        mcontext=this;
         super.onCreate(savedInstanceState);
     }
 
@@ -49,6 +60,7 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
+                checkedInput();
                 break;
             case R.id.btn_register:
                 MFGT.gotoRegister(this);
@@ -56,12 +68,63 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+    private void checkedInput() {
+        username= musername.getText().toString().trim();
+         password=mpassword.getText().toString().trim();
+        if (TextUtils.isEmpty(username)){
+            CommonUtils.showLongToast(R.string.user_name_connot_be_empty);
+            musername.requestFocus();
+            return;
+        }else if (TextUtils.isEmpty(password)){
+            mpassword.requestFocus();
+            return;
+        }
+        Login();
+    }
+
+    private void Login() {
+        final ProgressDialog pd=new ProgressDialog(mcontext);
+        pd.setMessage(getResources().getString(R.string.logining));
+        pd.show();
+        L.e(TAG,"username="+username+",password="+password);
+        NetDao.login(mcontext, username, password, new OkHttpUtils.OnCompleteListener<Result>() {
+            @Override
+            public void onSuccess(Result result) {
+                L.e( TAG,"result"+result);
+                if (result==null){
+                    CommonUtils.showLongToast(R.string.login_fail);
+                }else {
+                    if (result.isRetMsg()){
+                    User user=(User)result.getRetData();
+                        L.e(TAG,"user="+user);
+                        MFGT.finish(mcontext);
+
+                    }else {
+                        if (result.getRetCode()==I.MSG_LOGIN_UNKNOW_USER){
+                            CommonUtils.showLongToast(R.string.login_fail_unknow_user);
+                        }else if (result.getRetCode()==I.MSG_LOGIN_ERROR_PASSWORD){
+                            CommonUtils.showLongToast(R.string.login_fail_error_password);
+                        }else {
+                            CommonUtils.showLongToast(R.string.login_fail);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                CommonUtils.showLongToast(error);
+                L.e(TAG,"error="+error);
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==RESULT_OK&&requestCode== I.REQUEST_CODE_REGISTER){
             String name=data.getStringExtra(I.User.USER_NAME);
-            username.setText(name);
+            musername.setText(name);
         }
     }
 }
