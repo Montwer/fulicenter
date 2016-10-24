@@ -4,9 +4,7 @@ import android.content.Context;
 
 import com.example.a94896.fulicenter.bean.User;
 
-/**
- * Created by 94896 on 2016/10/24.
- */
+
 
 public class UserDao {
     public static final String USER_TABLE_NAME = "t_superwechat_user";
@@ -16,16 +14,20 @@ public class UserDao {
     public static final String USER_COLUMN_AVATAR_PATH = "m_user_avatar_path";
     public static final String USER_COLUMN_AVATAR_SUFFIX = "m_user_avatar_suffix";
     public static final String USER_COLUMN_AVATAR_TYPE = "m_user_avatar_type";
-    public static final String USER_COLUMN_AVATAR_LASTUPDATE_TIME = "m_user_avatar_lastupdata_time";
-public UserDao(Context context){
-    DBManager.getInstance().onInit(context);
-}
+    public static final String USER_COLUMN_AVATAR_LASTUPDATE_TIME = "m_user_avatar_lastupdate_time";
+
+    public UserDao(Context context) {
+        DBManager.getInstance().onInit(context);
+    }
+
     public boolean saveUser(User user){
         return DBManager.getInstance().saveUser(user);
     }
+
     public User getUser(String username){
         return DBManager.getInstance().getUser(username);
     }
+
     public boolean updateUser(User user){
         return DBManager.getInstance().updateUser(user);
     }
