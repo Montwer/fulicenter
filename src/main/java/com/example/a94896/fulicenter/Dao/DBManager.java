@@ -14,13 +14,10 @@ import com.example.a94896.fulicenter.bean.User;
 public class DBManager {
     private static DBManager dbMgr=new DBManager();
     private static DBOpenHelper dbHelper;
-    public static synchronized DBManager getInstance(){
-        return dbMgr;
+    void onInit(Context context){
+        dbHelper=new DBOpenHelper(context);
     }
-    public static DBManager onInit(Context context){
-        if(dbHelper==null){
-            dbHelper=DBOpenHelper.onInit(context);
-        }
+    public static synchronized DBManager getInstance(){
         return dbMgr;
     }
     public synchronized void closeDB(){
@@ -44,8 +41,8 @@ public class DBManager {
     }
     public User getUser(String username){
         SQLiteDatabase db=dbHelper.getReadableDatabase();
-        String sql="select*from"+UserDao.USER_TABLE_NAME+"where"
-                +UserDao.USER_COLUMN_NAME+"=?";
+        String sql=" select * from "+UserDao.USER_TABLE_NAME+" where "
+                +UserDao.USER_COLUMN_NAME+" = ? ";
         User user=null;
         Cursor cursor=db.rawQuery(sql,new String[]{username});
         if (cursor.moveToNext()){
