@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.a94896.fulicenter.Dao.SharePrefrenceUtils;
 import com.example.a94896.fulicenter.Dao.UserDao;
 import com.example.a94896.fulicenter.FuLiCenterApplication;
 import com.example.a94896.fulicenter.I;
@@ -90,7 +91,7 @@ private static final String TAG=LoginActivity.class.getSimpleName();
         pd.setMessage(getResources().getString(R.string.logining));
         pd.show();
         L.e(TAG,"username="+username+",password="+password);
-        NetDao.login(mcontext, username, password, new OkHttpUtils.OnCompleteListener<String>() {
+        NetDao.login(mcontext,username,password,new OkHttpUtils.OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
                 Result result=ResultUtils.getResultFromJson(s,User.class);
@@ -104,12 +105,12 @@ private static final String TAG=LoginActivity.class.getSimpleName();
                         UserDao dao=new UserDao(mcontext);
                         boolean isSuccess=dao.saveUser(user);
                         if (isSuccess){
+                            SharePrefrenceUtils.getInstence(mcontext).saveUser(user.getMuserName());
                             FuLiCenterApplication.setUser(user);
                             MFGT.finish(mcontext);
                         }else {
                             CommonUtils.showLongToast(R.string.user_database_error);
                         }
-                        MFGT.finish(mcontext);
 
                     }else {
                         if (result.getRetCode()==I.MSG_LOGIN_UNKNOW_USER){

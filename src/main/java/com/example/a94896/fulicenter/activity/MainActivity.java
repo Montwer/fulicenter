@@ -12,6 +12,7 @@ import com.example.a94896.fulicenter.R;
 import com.example.a94896.fulicenter.fragment.BoutiqueFragment;
 import com.example.a94896.fulicenter.fragment.CategoryFragment;
 import com.example.a94896.fulicenter.fragment.NewGoodsFragment;
+import com.example.a94896.fulicenter.fragment.PersonalCenterFragment;
 import com.example.a94896.fulicenter.utils.L;
 import com.example.a94896.fulicenter.utils.MFGT;
 
@@ -42,6 +43,7 @@ public class MainActivity extends BaseActivity {
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
     CategoryFragment mCategoryFragment;
+    PersonalCenterFragment mPersonalCenterFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -60,6 +62,7 @@ public class MainActivity extends BaseActivity {
         fragments[0]=mNewGoodsFragment;
         fragments[1]=mBoutiqueFragment;
         fragments[2]=mCategoryFragment;
+        fragments[4]=mPersonalCenterFragment;
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container,mNewGoodsFragment)
