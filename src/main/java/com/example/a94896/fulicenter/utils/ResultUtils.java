@@ -53,7 +53,6 @@ public class ResultUtils {
                 }
             }else{
                 if (jsonObject != null) {
-                    Log.e("Utils", "jsonRetData=" + jsonObject);
                     String date;
                     try {
                         date = URLDecoder.decode(jsonObject.toString(), I.UTF_8);

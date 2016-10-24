@@ -1,5 +1,6 @@
 package com.example.a94896.fulicenter.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -59,6 +60,7 @@ public class MainActivity extends BaseActivity {
         mNewGoodsFragment=new NewGoodsFragment();
         mBoutiqueFragment=new BoutiqueFragment();
         mCategoryFragment=new CategoryFragment();
+        mPersonalCenterFragment=new PersonalCenterFragment();
         fragments[0]=mNewGoodsFragment;
         fragments[1]=mBoutiqueFragment;
         fragments[2]=mCategoryFragment;
@@ -110,7 +112,7 @@ public class MainActivity extends BaseActivity {
                 index=3;
                 break;
             case  R.id.layout_personal_center:
-                if (FuLiCenterApplication.getUsername()==null){
+                if (FuLiCenterApplication.getUser()==null){
                     MFGT.gotoLogin(this);
                 }else {
                     index=4;
@@ -146,6 +148,18 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed(){
         finish();
      }
+    protected void onResume(){
+        super.onResume();
+        if (FuLiCenterApplication.getUser()!=null){
+            index=4;
+        }
+        setFragment();
+      }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
+}
 
 

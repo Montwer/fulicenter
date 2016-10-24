@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.example.a94896.fulicenter.I;
 import com.example.a94896.fulicenter.R;
+import com.example.a94896.fulicenter.bean.User;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -357,6 +358,22 @@ public class ImageLoader {
                 .defaultPicture(R.drawable.nopic)
                 .imageView(imageView)
                 .setDragging(isDragging)
+                .showImage(context);
+    }
+    public static String getAvatarUrl(User user){
+        if (user!=null){
+            String url=I.DOWNLOAD_IMG_URL +I.NAME_OR_HXID + "=" +user.getMuserName()
+                    +I.AND +I.AVATAR_TYPE + "=" +user.getMavatarType() +I.AND +I.AVATAR_SUFFIX
+                    + "="+user.getMavatarSuffix()+I.AND+"width=200&height=200";
+            L.e("useravatar="+url);
+            return url;
+        }
+        return null;
+    }
+    public static void setAvater(String url,Context context,ImageView imageView){
+        ImageLoader.build(url)
+                .defaultPicture(R.drawable.contactlogo)
+                .imageView(imageView)
                 .showImage(context);
     }
 }
