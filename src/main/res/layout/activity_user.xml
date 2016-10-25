@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eff2f6"
+    android:orientation="vertical"
+    android:id="@+id/layout_register">
+    <include layout="@layout/yonghu"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="5"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical" >
+        <RelativeLayout
+            android:id="@+id/iv_user_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="#fff" >
+            <ImageView
+                android:id="@+id/iv_username_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dip"
+                android:src="@drawable/icon_account" />
+
+            <TextView
+                android:id="@+id/username_photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:text="用户头像"
+                android:paddingLeft="10dip"
+                android:singleLine="true"
+                android:textSize="18sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/layout_user_profile_username"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="5dp"
+            android:background="#fff" >
+            <TextView
+                android:id="@+id/iv_username"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:text="用户名"
+                android:paddingLeft="10dip"
+                android:singleLine="true"
+                android:textSize="18sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/layout_user_profile_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="5dp"
+            android:background="#fff" >
+
+            <TextView
+                android:id="@+id/nick"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:text="昵称"
+                android:paddingLeft="10dip"
+                android:singleLine="true"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/tb_btn_login_orange_normal"
+                android:paddingBottom="7dp"
+                android:paddingTop="7dp"
+                android:text="退出"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -10,6 +10,7 @@ import com.example.a94896.fulicenter.FuLiCenterApplication;
 import com.example.a94896.fulicenter.R;
 import com.example.a94896.fulicenter.Views.DisplayUtils;
 import com.example.a94896.fulicenter.bean.User;
+import com.example.a94896.fulicenter.utils.CommonUtils;
 import com.example.a94896.fulicenter.utils.ImageLoader;
 import com.example.a94896.fulicenter.utils.MFGT;
 
@@ -65,6 +66,7 @@ public class UserActivity extends BaseActivity {
             case R.id.iv_user_avatar:
                 break;
             case R.id.layout_user_profile_username:
+                CommonUtils.showLongToast(R.string.update_user_nick_success);
                 break;
             case R.id.layout_user_profile_nickname:
                 break;

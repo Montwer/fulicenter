@@ -12,6 +12,7 @@ import com.example.a94896.fulicenter.Dao.UserDao;
 import com.example.a94896.fulicenter.FuLiCenterApplication;
 import com.example.a94896.fulicenter.I;
 import com.example.a94896.fulicenter.R;
+import com.example.a94896.fulicenter.Views.DisplayUtils;
 import com.example.a94896.fulicenter.bean.Result;
 import com.example.a94896.fulicenter.bean.User;
 import com.example.a94896.fulicenter.net.NetDao;
@@ -47,7 +48,7 @@ private static final String TAG=LoginActivity.class.getSimpleName();
 
     @Override
     protected void initView() {
-
+        DisplayUtils.initBackWithTitle(mcontext,getResources().getString(R.string.login));
     }
 
     @Override

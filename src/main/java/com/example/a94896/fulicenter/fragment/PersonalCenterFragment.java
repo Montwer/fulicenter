@@ -31,7 +31,7 @@ public class PersonalCenterFragment extends BaseFragment {
     ImageView mIvUserAvatar;
     @BindView(R.id.tv_user_name)
     TextView mTvUserName;
-
+    User user=null;
     MainActivity mContext;
 
     @Nullable
@@ -46,7 +46,6 @@ public class PersonalCenterFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
     }
 
     @Override
@@ -65,8 +64,18 @@ public class PersonalCenterFragment extends BaseFragment {
     protected void setListener() {
 
     }
+    public void onResume(){
+        super.onResume();
+        User user = FuLiCenterApplication.getUser();
+        L.e(TAG,"user="+user);
+        if(user==null) {
+            ImageLoader.setAvater(ImageLoader.getAvatarUrl(user), mContext, mIvUserAvatar);
+            mTvUserName.setText(user.getMuserNick());
+        }
+    }
 
-    @OnClick(R.id.tv_center_settings)
-    public void onClick() {
+    @OnClick({R.id.tv_center_settings,R.id.center_user_info})
+    public void gotoSettings() {
+        MFGT.gotoSettings(mContext);
     }
 }

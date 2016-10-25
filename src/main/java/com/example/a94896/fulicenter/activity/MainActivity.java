@@ -9,6 +9,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.a94896.fulicenter.FuLiCenterApplication;
+import com.example.a94896.fulicenter.I;
 import com.example.a94896.fulicenter.R;
 import com.example.a94896.fulicenter.fragment.BoutiqueFragment;
 import com.example.a94896.fulicenter.fragment.CategoryFragment;
@@ -150,8 +151,8 @@ public class MainActivity extends BaseActivity {
      }
     protected void onResume(){
         super.onResume();
-        if (FuLiCenterApplication.getUser()!=null){
-            index=4;
+        if (index==4&&FuLiCenterApplication.getUser()==null){
+            index=0;
         }
         setFragment();
       }
@@ -159,6 +160,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode== I.REQUEST_CODE_LOGIN&&FuLiCenterApplication.getUser()!=null){
+            index=4;
+        }
     }
 }
 
