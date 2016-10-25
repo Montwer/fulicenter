@@ -71,4 +71,7 @@ public class DBManager {
         }
         return resule>0;
     }
+    public void onClick(){
+
+    }
 }
