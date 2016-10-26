@@ -9,12 +9,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.a94896.fulicenter.FuLiCenterApplication;
 import com.example.a94896.fulicenter.I;
 import com.example.a94896.fulicenter.R;
 import com.example.a94896.fulicenter.Views.FooterViewHolder;
 import com.example.a94896.fulicenter.bean.CollectBean;
+import com.example.a94896.fulicenter.bean.MessageBean;
+import com.example.a94896.fulicenter.net.NetDao;
+import com.example.a94896.fulicenter.utils.CommonUtils;
 import com.example.a94896.fulicenter.utils.ImageLoader;
+import com.example.a94896.fulicenter.utils.L;
 import com.example.a94896.fulicenter.utils.MFGT;
+import com.example.a94896.fulicenter.utils.OkHttpUtils;
 
 import java.util.ArrayList;
 
@@ -73,7 +79,7 @@ public class CollectsAdapter extends Adapter {
             CollectBean mCollectBean=mList.get(position);
             ImageLoader.downloadImg(mContext,mGoodsViewHolder.ivGoodsThumb,mCollectBean.getGoodsThumb());
             mGoodsViewHolder.tvGoodsName.setText(mCollectBean.getGoodsName());
-            mGoodsViewHolder.layoutGoods.setTag(mCollectBean.getGoodsId());
+            mGoodsViewHolder.layoutGoods.setTag(mCollectBean);
 
         }
     }
@@ -125,9 +131,31 @@ public class CollectsAdapter extends Adapter {
         }
         @OnClick(R.id.layout_goods)
         public void onGoodsItemClick(){
-            int goodsId=(int)layoutGoods.getTag();
-            MFGT.gotoGoodsDetailActivity(mContext,goodsId);
+            CollectBean goods=(CollectBean)layoutGoods.getTag();
+            MFGT.gotoGoodsDetailActivity(mContext, goods.getId());
         }
-    }
+        @OnClick(R.id.iv_collect_del)
+        public void deleteCollect(){
+            final CollectBean goods=(CollectBean)layoutGoods.getTag();
+            String username= FuLiCenterApplication.getUser().getMuserName();
+            NetDao.deleteCollect(mContext, username, goods.getGoodsId(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                @Override
+                public void onSuccess(MessageBean result) {
+                    if (result!=null&&result.isSuccess()){
+                        mList.remove(goods);
+                        notifyDataSetChanged();
+                    }else {
+                        CommonUtils.showLongToast(result!=null?result.getMsg():mContext.getResources().getString(R.string.delete_collect_fail));
+                    }
+                }
 
+                @Override
+                public void onError(String error) {
+                    L.e("error="+error);
+                    CommonUtils.showLongToast(mContext.getResources().getString(R.string.delete_collect_fail));
+                }
+            });
+        }
+
+    }
 }
