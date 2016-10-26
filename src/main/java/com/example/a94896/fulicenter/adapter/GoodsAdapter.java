@@ -38,7 +38,7 @@ public class GoodsAdapter extends Adapter {
     int sortBy=I.SORT_BY_ADDTIME_DESC;
 
 
-    public GoodsAdapter(ArrayList<NewGoodsBean> list, Context context) {
+    public GoodsAdapter(Context context, ArrayList<NewGoodsBean> list) {
         mList=new ArrayList<>();
         mList.addAll(list);
         mContext = context;
