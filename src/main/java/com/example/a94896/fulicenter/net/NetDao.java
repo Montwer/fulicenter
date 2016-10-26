@@ -6,10 +6,15 @@ import com.example.a94896.fulicenter.I;
 import com.example.a94896.fulicenter.bean.BoutiqueBean;
 import com.example.a94896.fulicenter.bean.CategoryChildBean;
 import com.example.a94896.fulicenter.bean.CategoryGroupBean;
+import com.example.a94896.fulicenter.bean.CollectBean;
 import com.example.a94896.fulicenter.bean.GoodsDetailsBean;
+import com.example.a94896.fulicenter.bean.MessageBean;
 import com.example.a94896.fulicenter.bean.NewGoodsBean;
 import com.example.a94896.fulicenter.bean.Result;
 import com.example.a94896.fulicenter.utils.MD5;
+import com.example.a94896.fulicenter.utils.OkHttpUtils;
+
+import java.io.File;
 
 
 public class NetDao {
@@ -114,5 +119,39 @@ public static void login(Context context, String username, String password, OkHt
                 .addParam(I.User.NICK,nick)
                 .targetClass(String.class)
                 .execute(listener);
+    }
+    public static void updateAvatar(Context context, String username, File file, OkHttpUtils.OnCompleteListener<String> listener){
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_UPDATE_AVATAR)
+                .addParam(I.NAME_OR_HXID,username)
+                .addParam(I.AVATAR_TYPE,I.AVATAR_TYPE_USER_PATH)
+                .addFile2(file)
+                .targetClass(String.class)
+                .post()
+                .execute(listener);
+    }
+    public static void syncUserInfo(Context context, String username,OkHttpUtils.OnCompleteListener<String> listener) {
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_USER)
+                .addParam(I.User.USER_NAME,username)
+                 .targetClass(String.class)
+                .execute(listener);
+    }
+    public static void getCollectsCount(Context context, String username,OkHttpUtils.OnCompleteListener<MessageBean>listener){
+        OkHttpUtils<MessageBean>utils=new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_COLLECT_COUNT)
+                .addParam(I.Collect.USER_NAME,username)
+                .targetClass(MessageBean.class)
+                .execute(listener);
+    }
+    public static void downloadCollects(Context context, String username, int pagId, OkHttpUtils.OnCompleteListener<CollectBean[]>listener){
+        OkHttpUtils<CollectBean[]>utils=new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_COLLECTS)
+                .addParam(I.Collect.USER_NAME,username)
+                .addParam(I.PAGE_ID,String.valueOf(pagId))
+                .addParam(I.PAGE_SIZE,String.valueOf(I.PAGE_SIZE_DEFAULT))
+                .targetClass(CollectBean[].class)
+                .execute(listener);
+
     }
 }

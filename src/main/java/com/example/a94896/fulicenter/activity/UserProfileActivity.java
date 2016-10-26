@@ -15,7 +15,7 @@ import com.example.a94896.fulicenter.Views.DisplayUtils;
 import com.example.a94896.fulicenter.bean.Result;
 import com.example.a94896.fulicenter.bean.User;
 import com.example.a94896.fulicenter.net.NetDao;
-import com.example.a94896.fulicenter.net.OkHttpUtils;
+import com.example.a94896.fulicenter.utils.OkHttpUtils;
 import com.example.a94896.fulicenter.utils.CommonUtils;
 import com.example.a94896.fulicenter.utils.ImageLoader;
 import com.example.a94896.fulicenter.utils.L;
@@ -121,6 +121,7 @@ public class UserProfileActivity extends BaseActivity {
         }
     }
 
+
     private void updateAvatar() {
         //file=/storage/emulated/0/Android/data/cn.ucai.fulicenter/files/Pictures/a952700
         //file=/storage/emulated/0/Android/data/cn.ucai.fulicenter/files/Pictures/user_avatar/a952700.jpg
@@ -144,7 +145,7 @@ public class UserProfileActivity extends BaseActivity {
                     User u = (User) result.getRetData();
                     if(result.isRetMsg()){
                         FuLiCenterApplication.setUser(u);
-                        ImageLoader.setAvater(ImageLoader.getAvatarUrl(u),mContext,mIvUserProfileAvatar);
+                        ImageLoader.setAvatar(ImageLoader.getAvatarUrl(u),mContext,mIvUserProfileAvatar);
                         CommonUtils.showLongToast(R.string.update_user_avatar_success);
                     }else{
                         CommonUtils.showLongToast(R.string.update_user_avatar_fail);
@@ -165,7 +166,7 @@ public class UserProfileActivity extends BaseActivity {
     private void showInfo(){
         user = FuLiCenterApplication.getUser();
         if(user!=null){
-            ImageLoader.setAvater(ImageLoader.getAvatarUrl(user),mContext,mIvUserProfileAvatar);
+            ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),mContext,mIvUserProfileAvatar);
             mTvUserProfileName.setText(user.getMuserName());
             mTvUserProfileNick.setText(user.getMuserNick());
         }
